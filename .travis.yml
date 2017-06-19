@@ -9,8 +9,6 @@ before_install:
 
 install:
   - make build
-
-after_success:
   - docker tag dp-docker-stats registry-cn.datapipeline.com:10111/dp-docker-stats:$(git symbolic-ref --short -q HEAD)
   - docker push registry-cn.datapipeline.com:10111/dp-docker-stats:$(git symbolic-ref --short -q HEAD)
   - docker rmi registry-cn.datapipeline.com:10111/dp-docker-stats:$(git symbolic-ref --short -q HEAD)
