@@ -9,7 +9,7 @@ before_install:
 
 install:
   - make build
-  - docker tag dp-docker-stats registry-cn.datapipeline.com:10111/dp-docker-stats:$(git rev-parse --abbrev-ref HEAD)
-  - docker push registry-cn.datapipeline.com:10111/dp-docker-stats:$(git rev-parse --abbrev-ref HEAD)
-  - docker rmi registry-cn.datapipeline.com:10111/dp-docker-stats:$(git rev-parse --abbrev-ref HEAD)
+  - docker tag dp-docker-stats registry-cn.datapipeline.com:10111/dp-docker-stats:$TRAVIS_BRANCH
+  - docker push registry-cn.datapipeline.com:10111/dp-docker-stats:$TRAVIS_BRANCH
+  - docker rmi registry-cn.datapipeline.com:10111/dp-docker-stats:$TRAVIS_BRANCH
   - make clean
