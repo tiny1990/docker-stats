@@ -1,0 +1,17 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - mkdir -p /etc/docker/certs.d/registry-cn.datapipeline.com:10111
+  - openssl aes-256-cbc -d -K $(OPENSSL_KEY) -iv $(OPENSSL_IV) -in docker-registry.crt.enc -out /etc/docker/certs.d/registry-cn.datapipeline.com:10111/ca.crt
+
+install:
+  - make build
+
+after_success:
+  - docker tag dp-docker-stats registry-cn.datapipeline.com:10111/dp-docker-stats:$(git symbolic-ref --short -q HEAD)
+  - docker push registry-cn.datapipeline.com:10111/dp-docker-stats:$(git symbolic-ref --short -q HEAD)
+  - docker rmi registry-cn.datapipeline.com:10111/dp-docker-stats:$(git symbolic-ref --short -q HEAD)
+  - make clean
