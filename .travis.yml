@@ -9,7 +9,9 @@ before_install:
 
 install:
   - make build
-  - docker tag dp-docker-stats registry-cn.datapipeline.com:10111/dp-docker-stats:$TRAVIS_BRANCH
-  - docker push registry-cn.datapipeline.com:10111/dp-docker-stats:$TRAVIS_BRANCH
-  - docker rmi registry-cn.datapipeline.com:10111/dp-docker-stats:$TRAVIS_BRANCH
+  - docker tag dp-docker-stats registry-cn.datapipeline.com:10111/dp-docker-stats:travis
+  - docker push registry-cn.datapipeline.com:10111/dp-docker-stats:travis
+  - docker rmi registry-cn.datapipeline.com:10111/dp-docker-stats:travis
+
+script:
   - make clean
