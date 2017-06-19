@@ -5,7 +5,7 @@ services:
 
 before_install:
   - sudo mkdir -p /etc/docker/certs.d/registry-cn.datapipeline.com:10111
-  - sudo openssl aes-256-cbc -d -K $(OPENSSL_KEY) -iv $(OPENSSL_IV) -in docker-registry.crt.enc -out /etc/docker/certs.d/registry-cn.datapipeline.com:10111/ca.crt
+  - sudo openssl aes-256-cbc -d -K $OPENSSL_KEY -iv $OPENSSL_IV -in docker-registry.crt.enc -out /etc/docker/certs.d/registry-cn.datapipeline.com:10111/ca.crt
 
 install:
   - make build
