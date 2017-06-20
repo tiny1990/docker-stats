@@ -58,7 +58,7 @@ func main() {
 			for _, str := range container_json.Config.Env {
 				fmt.Printf(str)
 				envarr := strings.Split(str, "=")
-				if strings.EqualFold("SERVICE", envarr[0]) {
+				if strings.EqualFold("SERVICE_NAME", envarr[0]) {
 					servicename = envarr[1]
 					break
 				}
