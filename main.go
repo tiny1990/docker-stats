@@ -7,7 +7,6 @@ import (
 	"io"
 	"log"
 	"os"
-	"fmt"
 	"strings"
 
 	"github.com/docker/docker/client"
@@ -56,7 +55,6 @@ func main() {
 			servicename := container.ID
 
 			for _, str := range container_json.Config.Env {
-				fmt.Printf(str)
 				envarr := strings.Split(str, "=")
 				if strings.EqualFold("SERVICE_NAME", envarr[0]) {
 					servicename = envarr[1]
