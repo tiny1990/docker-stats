@@ -9,7 +9,7 @@ before_install:
 
 install:
   - make build
-  - docker tag dp-docker-stats registry-cn.datapipeline.com:10111/dp-docker-stats:travis
+  - docker tag dp-docker-stats registry-cn.datapipeline.com:10111/dp-docker-stats:travis-rc1
   - docker push registry-cn.datapipeline.com:10111/dp-docker-stats:travis
   - docker rmi registry-cn.datapipeline.com:10111/dp-docker-stats:travis
 
