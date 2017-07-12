@@ -4,7 +4,6 @@ import (
 	"github.com/influxdata/influxdb/client/v2"
 	"log"
 	"time"
-	"fmt"
 )
 
 type InfluxDB struct {
@@ -33,9 +32,6 @@ func SendToDB(tableName string, cli client.Client, points client.BatchPoints, st
 		points.AddPoint(pt)
 	}
 	cli.Write(points)
-	size := len(points.Points())
-	fmt.Println(size)
-
 	cli.Close()
 }
 
