@@ -13,7 +13,18 @@ type InfluxDB struct {
 	password string
 }
 
-func SendToDB(tableName string, cli client.Client, points client.BatchPoints, stat []*DockerStat) {
+func SendToDB(dbName, tableName string, cli client.Client, stat []*DockerStat) {
+
+	batchPoints, batchPointErr := client.NewBatchPoints(client.BatchPointsConfig{
+		Database:  dbName,
+		Precision: "s",
+	})
+
+	if batchPointErr != nil {
+		log.Println(batchPointErr)
+		return
+	}
+
 	for _, dockerStat := range stat {
 		tags := map[string]string{"host": dockerStat.serviceName}
 		fields := map[string]interface{}{
@@ -29,13 +40,17 @@ func SendToDB(tableName string, cli client.Client, points client.BatchPoints, st
 			log.Println(err)
 			continue
 		}
-		points.AddPoint(pt)
+		batchPoints.AddPoint(pt)
 	}
-	cli.Write(points)
+	err := cli.Write(batchPoints)
+	if err != nil {
+		log.Println(err)
+	}
+	log.Println(len(batchPoints.Points()))
 	cli.Close()
 }
 
-func (*InfluxDB) InitDB(host, dbname, username, password string) (client.Client, client.BatchPoints) {
+func (*InfluxDB) InitDB(host, dbname, username, password string) (client.Client) {
 	influxClient, httpConfigErr := client.NewHTTPClient(client.HTTPConfig{
 		Addr:     host,
 		Username: username,
@@ -44,13 +59,5 @@ func (*InfluxDB) InitDB(host, dbname, username, password string) (client.Client,
 	if httpConfigErr != nil {
 		log.Fatal(httpConfigErr)
 	}
-	batchPointsConfig, batchPointErr := client.NewBatchPoints(client.BatchPointsConfig{
-		Database:  dbname,
-		Precision: "s",
-	})
-
-	if batchPointErr != nil {
-		log.Fatal(batchPointErr)
-	}
-	return influxClient, batchPointsConfig
+	return influxClient
 }
