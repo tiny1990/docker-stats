@@ -1,13 +1,12 @@
 # dp-docker-stats
 
 #### 启动方式
-docker run -it -d -v /var/run/docker.sock:/var/run/docker.sock \
-             -e "INFLUX_HOST=http://172.17.0.1:8086" \
-             -e "INFLUX_DBNAME=dp_docker_stats" \
-             -e "INFLUX_USERNAME=root" \
-             -e "INFLUX_PASSWORD=123456" \
-             -e "INFLUX_TABLE_SUFFIX=mx-dev" \
-             dp-docker-stats
+    docker run -it -d -v /var/run/docker.sock:/var/run/docker.sock \  
+        -e "INFLUX_HOST=http://172.17.0.1:8086" \  
+        -e "INFLUX_DBNAME=dp_docker_stats" \  
+        -e "INFLUX_USERNAME=root" \  
+        -e "INFLUX_PASSWORD=123456" \  
+        -e "INFLUX_TABLE_SUFFIX=mx-dev" dp-docker-stats
              
              
 #### 环境变量
