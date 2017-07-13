@@ -16,3 +16,11 @@
 - *INFLUX_PASSWORD:  influxdb 密码
 - INFLUX_TABLE_SUFFIX: influxdb 的后缀,未设置为:dp-docker-stats  
 ``` * 为必须选项 ```
+
+
+#### 实现方式
+复写docker远程client，实现监控指标
+
+
+#### 源码编译
+make build
